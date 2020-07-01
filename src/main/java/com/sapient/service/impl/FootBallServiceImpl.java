@@ -2,6 +2,8 @@ package com.sapient.service.impl;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.sapient.constant.Constant;
@@ -14,6 +16,8 @@ public class FootBallServiceImpl implements Service {
 
 	//private ExecutorService executorService = Executors.newFixedThreadPool(10);
 
+	private static final Logger logger = LoggerFactory.getLogger(FootBallServiceImpl.class);
+	
 	@Override
 	public TeamResponse getRecord(String countryName, String leagueName, String teamName) {
 
@@ -31,6 +35,7 @@ public class FootBallServiceImpl implements Service {
 
 
 		if(teamResponse.getCountryId() == null ) {
+			logger.info("Country not found");
 			return null;
 		}
 		teamResponse.setLeagueId(
@@ -39,6 +44,7 @@ public class FootBallServiceImpl implements Service {
 				);
 
 		if(teamResponse.getLeagueId() == null ) {
+			logger.info("league not found");
 			return null;
 		}
 
@@ -48,6 +54,7 @@ public class FootBallServiceImpl implements Service {
 				);
 
 		if(teamResponse.getTeamId() == null ) {
+			logger.info("Team not found");
 			return null;
 		}
 		

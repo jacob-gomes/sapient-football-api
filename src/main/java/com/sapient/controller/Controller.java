@@ -38,7 +38,7 @@ public class Controller {
 		Validate.requestForGetRecord(countryName,leagueName,teamName);
 		TeamResponse teamResponse = footBallService.getRecord(countryName,leagueName,teamName);
 		
-		logger.info("Response: {}",teamResponse.toString());
+		logger.info("Response: {}",teamResponse != null ? teamResponse.toString(): null);
 		return new ResponseEntity<TeamResponse>(teamResponse, HttpStatus.OK);
 	}
 }
