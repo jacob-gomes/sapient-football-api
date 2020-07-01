@@ -25,7 +25,8 @@ public class FootBallServiceImpl implements Service {
 		teamResponse.setTeamName(teamName);
 
 		teamResponse.setCountryId(
-				requestRestCallAndProcessResponse(countryName, teamResponse,Constant.GET_COUNTRY_URL, "country_name", "country_id",null, null)
+				requestRestCallAndProcessResponse(countryName, Constant.GET_COUNTRY_URL, 
+						"country_name", "country_id",null, null)
 				);
 
 
@@ -33,7 +34,7 @@ public class FootBallServiceImpl implements Service {
 			return null;
 		}
 		teamResponse.setLeagueId(
-				requestRestCallAndProcessResponse(countryName, teamResponse,Constant.GET_LEAGUES_URL, "country_name",
+				requestRestCallAndProcessResponse(leagueName, Constant.GET_LEAGUES_URL, "country_name",
 						"country_id", "{country-id}",teamResponse.getCountryId())
 				);
 
@@ -42,7 +43,7 @@ public class FootBallServiceImpl implements Service {
 		}
 
 		teamResponse.setTeamId(
-				requestRestCallAndProcessResponse(countryName, teamResponse,Constant.GET_LEAGUES_URL, "team_name",
+				requestRestCallAndProcessResponse(teamName, Constant.GET_LEAGUES_URL, "team_name",
 						"team_key", "{league-id}",teamResponse.getLeagueId())
 				);
 
@@ -50,11 +51,14 @@ public class FootBallServiceImpl implements Service {
 			return null;
 		}
 		
-		
+		teamResponse.setOverallPosition(
+				requestRestCallAndProcessResponse(teamResponse.getTeamId() ,Constant.GET_STATISTICS_URL, "team_id",
+						"overall_league_position", "{league-id}",teamResponse.getLeagueId())
+				);
 		return teamResponse;
 	}
 
-	private String requestRestCallAndProcessResponse(String countryName, TeamResponse teamResponse, String url, 
+	private String requestRestCallAndProcessResponse(String entityValue,  String url, 
 			String entityName, String entityId, String toBeReplace, String replaceWith) {
 		
 		if(null != toBeReplace && null != replaceWith) {
@@ -67,7 +71,7 @@ public class FootBallServiceImpl implements Service {
 
 		for(Object object: entityJsonArray.toList()) {
 			JSONObject jsonObject = (JSONObject)object;
-			if(countryName.equalsIgnoreCase(jsonObject.optString(entityName))) {
+			if(entityValue.equalsIgnoreCase(jsonObject.optString(entityName))) {
 				return jsonObject.optString(entityId);
 
 			}
