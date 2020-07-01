@@ -1,4 +1,4 @@
-package com.sapient;
+package com.sapient.configuration;
 /**
  * 
  */
