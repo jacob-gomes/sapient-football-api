@@ -69,8 +69,8 @@ public class FootBallServiceImpl implements Service {
 		String responseEntity = allentity.executeRestCall();
 		JSONArray entityJsonArray = new JSONArray(responseEntity);
 
-		for(Object object: entityJsonArray.toList()) {
-			JSONObject jsonObject = (JSONObject)object;
+		for(int i = 0; i< entityJsonArray.length(); i++) {
+			JSONObject jsonObject = entityJsonArray.optJSONObject(i);
 			if(entityValue.equalsIgnoreCase(jsonObject.optString(entityName))) {
 				return jsonObject.optString(entityId);
 

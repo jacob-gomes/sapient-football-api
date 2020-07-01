@@ -52,6 +52,12 @@ public class TeamResponse {
 	public void setOverallPosition(String overallPosition) {
 		this.overallPosition = overallPosition;
 	}
+	@Override
+	public String toString() {
+		return "TeamResponse [countryId=" + countryId + ", countryName=" + countryName + ", leagueName=" + leagueName
+				+ ", teamName=" + teamName + ", leagueId=" + leagueId + ", teamId=" + teamId + ", overallPosition="
+				+ overallPosition + "]";
+	}
 	
 
 

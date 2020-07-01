@@ -1,5 +1,7 @@
 package com.sapient.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,9 @@ public class Controller {
 
 	private Service footBallService;
 
+	private static final Logger logger = LoggerFactory.getLogger(Controller.class);
+	
+	
 	@Autowired
 	public Controller(Service footBallService) {
 		super();
@@ -32,6 +37,8 @@ public class Controller {
 			@RequestParam(value = "teamName", required =false) String teamName) throws BadRequestException{
 		Validate.requestForGetRecord(countryName,leagueName,teamName);
 		TeamResponse teamResponse = footBallService.getRecord(countryName,leagueName,teamName);
+		
+		logger.info("Response: {}",teamResponse.toString());
 		return new ResponseEntity<TeamResponse>(teamResponse, HttpStatus.OK);
 	}
 }
