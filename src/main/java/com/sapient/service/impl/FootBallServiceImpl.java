@@ -39,8 +39,8 @@ public class FootBallServiceImpl implements Service {
 			return null;
 		}
 		teamResponse.setLeagueId(
-				requestRestCallAndProcessResponse(leagueName, Constant.GET_LEAGUES_URL, "country_name",
-						"country_id", "{country-id}",teamResponse.getCountryId())
+				requestRestCallAndProcessResponse(leagueName, Constant.GET_LEAGUES_URL, "league_name",
+						"league_id", "{country-id}",teamResponse.getCountryId())
 				);
 
 		if(teamResponse.getLeagueId() == null ) {
@@ -49,7 +49,7 @@ public class FootBallServiceImpl implements Service {
 		}
 
 		teamResponse.setTeamId(
-				requestRestCallAndProcessResponse(teamName, Constant.GET_LEAGUES_URL, "team_name",
+				requestRestCallAndProcessResponse(teamName, Constant.GET_TEAM_URL, "team_name",
 						"team_key", "{league-id}",teamResponse.getLeagueId())
 				);
 
